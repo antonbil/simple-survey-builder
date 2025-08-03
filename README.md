@@ -66,10 +66,10 @@ There are a couple of ways to install the Simple Survey Builder plugin:
 
 **1. Using Git (Recommended for developers):**
 
-   a. Navigate to your WordPress plugins directory: `wp-content/plugins/`
-   b. Clone this repository:
+a. Navigate to your WordPress plugins directory: `wp-content/plugins/`
+b. Clone this repository:
      `bash git clone https://github.com/antonbil/ simple- survey- builder. git`
-   c. Activate the plugin through the 'Plugins' menu in WordPress.
+c. Activate the plugin through the 'Plugins' menu in WordPress.
 
 **2. Manual Installation (Download ZIP):**
 
