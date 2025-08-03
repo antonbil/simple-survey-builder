@@ -13,7 +13,7 @@ Simple Survey Builder allows you to quickly and easily configure surveys using a
 *   [Usage](#usage)
     *   [Configuration (`survey_configurations.json`)](#configuration-survey_configurationsjson)
     *   [Shortcodes](#shortcodes)
-        *   [Display a Survey: `[simple_survey]`](#1-display-a-survey-simple_survey)
+        *   [Display a Survey: `[site_survey]`](#1-display-a-survey-simple_survey)
         *   [Display Survey Results: `[site_survey_results]`](#2-display-survey-results-site_survey_results)
         *   [List Survey Entries: `[cpt_list]`](#3-list-survey-entries-cpt_list)
 *   [About the Author](#about-the-author)
@@ -44,7 +44,7 @@ Since submissions are stored as individual posts within a custom post type, Word
 *   **JSON-based Configuration:** Define your survey questions, types (text, select, radio, checkbox), and associated custom post types in a clear `survey_configurations.json` file. This allows for easy version control and programmatic modification if needed.
 *   **Custom Post Type Storage:** Each survey configuration can (and typically does) map to its own custom post type for storing submissions. This keeps data organized and accessible using standard WordPress tools and functions.
 *   **Shortcode Driven:** Easy to embed surveys, display aggregated results (including charts), and list individual submissions using simple shortcodes:
-    *   `[simple_survey slug="your_survey_slug"]` - Displays the survey form.
+    *   `[site_survey slug="your_survey_slug"]` - Displays the survey form.
     *   `[site_survey_results slug="your_survey_slug"]` - Shows aggregated results.
     *   `[cpt_list slug="your_survey_slug"]` - Lists individual submissions for a survey.
 *   **Flexible Reporting & Visualization:** Provides robust options for viewing survey results directly on your website:
@@ -67,17 +67,24 @@ There are a couple of ways to install the Simple Survey Builder plugin:
 **1. Using Git (Recommended for developers):**
 
 a. Navigate to your WordPress plugins directory: `wp-content/plugins/`
+
 b. Clone this repository:
-     `bash git clone https://github.com/antonbil/ simple- survey- builder. git`
+     `bash git clone https://github.com/antonbil/ simple-survey-builder. git`
+
 c. Activate the plugin through the 'Plugins' menu in WordPress.
 
 **2. Manual Installation (Download ZIP):**
 
    a. Go to the main page of this GitHub repository: [https://github.com/antonbil/simple-survey-builder](https://github.com/antonbil/simple-survey-builder)
+
    b. Click the green "Code" button, then click "Download ZIP".
+
    c. In your WordPress admin dashboard, go to `Plugins > Add New`.
+
    d. Click `Upload Plugin` at the top.
+
    e. Choose the `.zip` file you downloaded and click `Install Now`.
+   
    f. Activate the plugin.
    
 ## Usage
@@ -151,15 +158,24 @@ c. Activate the plugin through the 'Plugins' menu in WordPress.
 
 This plugin provides several shortcodes to display surveys, view results, and list survey entries.
 
-### 1. Display a Survey: `[simple_survey]`
+### 1. Display a Survey: `[site_survey]`
 
 This shortcode is used to display a specific survey form on any page, post, or widget.
 
 **Usage:**
-`[simple_survey slug="your_survey_slug" ]`
+
+*   Basic: `[site_survey slug="your_survey_slug"]`
+*   With custom redirect: `[site_survey slug="your_survey_slug" redirect_page="your_thank_you_page_slug_or_id"]`
+
 **Parameters:**
 
 *   `slug` (required): This is the unique identifier for the survey you want to display. It must match one of the `slug_identifier` values defined in your `config/survey_configurations.json` file.
+*   `redirect_page` (optional):
+    *   Specify the slug or ID of a WordPress page to redirect the user to after successful survey submission.
+    *   If this parameter is provided and a valid page is found, the user will be redirected to that page.
+    *   If omitted, empty, or an invalid page slug/ID is provided, the user will be redirected back to the page where the survey was submitted (default behavior).
+    *   Example using page slug: `redirect_page="thank-you-for-your-feedback"`
+    *   Example using page ID: `redirect_page="123"`
 
 **Functionality:**
 
@@ -168,11 +184,14 @@ When this shortcode is used, the plugin will:
 1.  Load the survey configuration associated with the provided `slug` from the `config/survey_configurations.json` file.
 2.  Dynamically generate and display the HTML form for the survey, including all questions, input fields (text, select, radio, checkbox), and labels as defined in the configuration.
 3.  Handle the submission of this form. Upon submission, the data is validated and saved as a new entry in the custom post type associated with that survey configuration.
-
+4.  After successful submission, the user will be redirected:
+    *   To the page specified by the `redirect_page` parameter, if provided and valid.
+    *   Otherwise, back to the page where the survey was submitted. A `survey_success=true` query parameter will be added to the URL, which can be used by your theme or custom scripts to display a success message.
+    
 **Example:**
 
 To display the aggregated results for the survey identified by slug_identifier: "product_satisfaction_survey", use the following shortcode:
-```[site_survey_results slug="product_satisfaction_survey"]```
+```[site_survey slug="product_satisfaction_survey"]```
 
 
 ### 2. Display Survey Results: `[site_survey_results]`

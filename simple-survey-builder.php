@@ -183,8 +183,9 @@ function kss_render_site_survey_form( $atts ) {
 
     // 1. Default attributes and merge with what's provided
     $atts = shortcode_atts( array(
-        'slug'      => $default_slug,             // **New: slug for the survey configuration**
-    ), $atts, 'cpt_list' ); // TODO: 'cpt_list' should be the actual shortcode tag, e.g., 'simple_survey'
+        'slug'            => $default_slug,
+        'redirect_page'   => '', // Optional redirect page slug or ID
+    ), $atts, 'site_survey' ); // Use the actual shortcode tag 'site_survey'**
 
     // 2. Validate the provided slug
     if ( empty( $atts['slug'] ) ) {
@@ -236,6 +237,8 @@ function kss_render_site_survey_form( $atts ) {
             <div class="site-survey-form-container kss-survey-form-container">
                 <form id="site-survey-form" method="post" action="">
                     <?php wp_nonce_field( 'kss_submit_survey_action', 'kss_survey_nonce' ); ?>
+                    <?php
+                    if ( ! empty( $atts['redirect_page'] ) ) {?><input type="hidden" name="kss_redirect_page_slug" value=" <?php echo esc_attr( $atts['redirect_page'] ).'">';} ?>
                     <input type="hidden" name="kss_current_page_url" value="<?php echo esc_url( get_permalink( get_the_ID() ) ); ?>">
                     <input type="hidden" name="kss_submitted_survey_slug" value="<?php echo esc_attr( $current_slug_identifier ); ?>">
 
@@ -650,16 +653,29 @@ function kss_handle_survey_submission() {
                 // exit; // Important after wp_die
 
                 $redirect_url = '';
-                // Check if a specific redirect URL was passed in the form (e.g., from a 'kss_redirect_success_url' hidden field)
-                // This would be the most reliable way to redirect back to the correct page.
-                // if ( ! empty( $_POST['kss_redirect_success_url'] ) ) {
-                //    $redirect_url = esc_url_raw( $_POST['kss_redirect_success_url'] );
-                // } else
-                if ( ! empty( $_POST['_wp_http_referer'] ) ) {
+                //Check for the custom redirect page slug from the form**
+                if ( ! empty( $_POST['kss_redirect_page_slug'] ) ) {
+                    $page_slug_or_id = sanitize_text_field( $_POST['kss_redirect_page_slug'] );
+
+                    $redirect_page = null;
+
+                    if ( is_numeric( $page_slug_or_id ) ) { // Check if it's an ID
+                        $redirect_page = get_post( intval( $page_slug_or_id ) );
+                    } else { // Assume it's a slug
+                        $redirect_page = get_page_by_path( $page_slug_or_id );
+                    }
+
+                    if ( $redirect_page ) {
+                        $redirect_url = get_permalink( $redirect_page->ID );
+                    }
+                }
+
+                // Fallback to _wp_http_referer if custom redirect is not set or not found
+                if ( empty( $redirect_url ) &&  ! empty( $_POST['_wp_http_referer'] ) ) {
                     // _wp_http_referer is a hidden field that WordPress often adds.
                     // Remove any existing query vars to prevent them from being duplicated.
                     $redirect_url = remove_query_arg( array('survey_success', 'survey_error'), wp_unslash( $_POST['_wp_http_referer'] ) );
-                } else {
+                } elseif(empty( $redirect_url )) {
                     // Fallback if _wp_http_referer is not available.
                     // Getting the current URL is tricky as we are in an 'init' hook action.
                     // You could pass the ID of the page where the shortcode is as a hidden field in the form,
