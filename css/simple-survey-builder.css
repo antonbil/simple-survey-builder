@@ -1,0 +1,143 @@
+        .survey-radio-group {
+    display: flex; /* Maak de fieldset een flex container */
+    flex-wrap: wrap; /* Sta items toe om naar de volgende regel te gaan */
+    gap: 15px; /* Optioneel: ruimte tussen de radio-opties (horizontaal en verticaal bij wrapping) */
+    /* Je kunt ook padding of margin op de fieldset zelf instellen als dat nodig is */
+}
+
+.survey-radio-option {
+    /* display: inline-flex;  Optioneel: als je wilt dat het label en de input samen als één flex-item behandeld worden voor interne uitlijning. */
+    /* align-items: center;  Optioneel: als je display: inline-flex gebruikt, om de radio en tekst verticaal te centreren. */
+    margin-right: 10px; /* Behoud wat ruimte als ze naast elkaar staan, gap regelt dit al beter */
+}
+.kss-survey-form-container { /* Voeg deze klasse toe aan je hoofd-formulier-div */
+        max-width: 700px; /* Of een andere breedte die goed past */
+        margin: 20px auto; /* Centreert de container en voegt wat ruimte boven/onder toe */
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtiele schaduw */
+    }
+    .survey-question-item { /* De <p> of <div> die elke vraag omsluit */
+        margin-bottom: 25px;
+        padding-bottom: 15px;
+        border-bottom: 1px dashed #eee; /* Subtiele scheiding tussen vragen */
+    }
+    .survey-question-item:last-child {
+        border-bottom: none; /* Geen lijn na de laatste vraag */
+    }
+    label.survey-question-label, .required-explanation { /* Het <label> element dat de vraagtekst bevat */
+        display: block; /* Zorgt dat het de volledige breedte inneemt */
+        /*font-weight: bold;*/
+        font-size: 1.2em; /* Iets groter dan de normale tekst */
+        margin-bottom: 10px;
+    }
+    .required-explanation{
+       margin-bottom: 20px; 
+       margin-left: 40px; 
+    }
+    .kss-survey-form-container input[type="text"],
+    .kss-survey-form-container input[type="email"], /* Als je die hebt */
+    .kss-survey-form-container input[type="number"], /* Als je die hebt */
+    .kss-survey-form-container textarea,
+    .kss-survey-form-container select {
+        width: 100%; /* Volledige breedte van hun container */
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box; /* Zorgt dat padding en border binnen de width vallen */
+        margin-bottom: 10px; /* Ruimte onder het veld */
+        font-size: 1em;
+    }
+    .kss-survey-form-container textarea {
+        min-height: 100px; /* Minimale hoogte voor textareas */
+        resize: vertical; /* Sta alleen verticale resizing toe */
+    }
+    .kss-survey-form-container input[type="text"]:focus,
+    .kss-survey-form-container input[type="email"]:focus,
+    .kss-survey-form-container input[type="number"]:focus,
+    .kss-survey-form-container textarea:focus,
+    .kss-survey-form-container select:focus {
+        border-color: #0073aa; /* WordPress blauw, of je eigen themakleur */
+        box-shadow: 0 0 0 2px rgba(0, 115, 170, 0.2); /* Subtiele gloed */
+        outline: none; /* Verwijder standaard browser outline */
+    }
+    .survey-radio-option label,
+    .survey-checkbox-option label {
+        margin-left: 5px; /* Ruimte tussen de input en het label */
+        cursor: pointer; /* Maakt duidelijk dat het label klikbaar is */
+        vertical-align: middle; /* Betere uitlijning met de input */
+    }
+    .survey-radio-option input[type="radio"],
+    .survey-checkbox-option input[type="checkbox"] {
+        vertical-align: middle; /* Betere uitlijning met het label */
+        margin-top: -2px; /* Fijnafstelling, kan per browser/thema verschillen */
+    }
+    .survey-radio-option:hover,
+    .survey-checkbox-option:hover {
+        background-color: #f0f0f0; /* Zeer lichte achtergrond op hover */
+        border-radius: 4px; /* Als je padding toevoegt aan de option container */
+    }
+    .kss-survey-form-container fieldset { /* Of specifiek .survey-radio-group, .survey-checkbox-group */
+        border: 1px solid #e0e0e0;
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 4px;
+    }
+    /* De <legend> die je gebruikt is .screen-reader-text, dus die is verborgen.
+       Als je zichtbare legends zou gebruiken: */
+    .kss-survey-form-container fieldset legend:not(.screen-reader-text) {
+        font-weight: bold;
+        font-style: italic;
+        padding: 0 5px;
+        margin-left: 10px; /* Om het niet tegen de rand te plakken */
+        /*color: #444;*/
+    }
+    .kss-survey-form-container input[type="submit"].kss_submit_survey_button {
+        background-color: #0073aa; /* WordPress blauw, of je thema's primaire kleur */
+        color: white;
+        padding: 12px 25px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 1.1em;
+        font-weight: bold;
+        transition: background-color 0.2s ease-in-out;
+        display: block; /* Zodat het de breedte kan nemen als je wilt */
+        margin: 20px auto 0; /* Centreer de knop als het een block is */
+    }
+    .kss-survey-form-container input[type="submit"].kss_submit_survey_button:hover {
+        background-color: #005a87; /* Donkerdere tint op hover */
+    }
+    @media (max-width: 600px) { /* Pas de breakpoint aan indien nodig */
+        .kss-survey-form-container {
+            padding: 15px; /* Iets minder padding op de hoofdcontainer */
+        }
+        label.survey-question-label {
+            font-size: 1em; /* Kan iets kleiner voor compactheid */
+        }
+        .kss-survey-form-container input[type="text"],
+        .kss-survey-form-container textarea,
+        .kss-survey-form-container select {
+            padding: 8px; /* Iets minder padding in de velden */
+        }
+        .kss-survey-form-container input[type="submit"].kss_submit_survey_button {
+            font-size: 1em;
+            padding: 10px 20px; /* Iets compactere knop */
+            width: 100%; /* Maak de knop volledige breedte op mobiel voor makkelijker tikken */
+            margin-left: 0;
+            margin-right: 0;
+        }
+        /* Als je flexbox of grid gebruikt voor radio/checkbox,
+           zorgen die al voor het onder elkaar plaatsen.
+           Je kunt hier wel de 'gap' aanpassen als je wilt: */
+        .survey-radio-group,
+        .survey-checkbox-group {
+            gap: 10px; /* Iets kleinere gap op mobiel */
+        }
+    }
+    label.survey-question-label.required::after, .required-explanation::before { /* Voeg .required toe aan het label in PHP als het veld verplicht is */
+        content: " *";
+        color: red;
+        font-weight: normal;
+    }

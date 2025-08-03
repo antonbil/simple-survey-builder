@@ -1,0 +1,390 @@
+# Dutch translation for Simple Survey Builder
+# Copyright (C) 2025 Anton Bil
+# This file is distributed under the GPL v2 or later.
+# Anton Bil <jouwemail@example.com>, 2025.
+msgid ""
+msgstr ""
+"Project-Id-Version: Simple Survey Builder 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/simple-survey-builder\n"
+"Last-Translator: Anton Bil <jouwemail@example.com>\n"
+"Language-Team: Dutch < ninguém@example.com >\n"
+"Language: nl_NL\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2025-08-01T11:40:35+00:00\n"
+"PO-Revision-Date: 2025-08-01 14:00+0200\n"
+"X-Generator: Poedit 3.x.x / WP-CLI 2.12.0\n" 
+"X-Domain: simple-survey-builder\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. Plugin Name of the plugin
+#: simple-survey-builder.php
+msgid "Simple Survey Builder"
+msgstr "Simpele Enquête Bouwer"
+
+#. Plugin URI of the plugin
+#: simple-survey-builder.php
+msgid "https://example.com/plugins/simple-survey-builder/ (Jouw website of de plek waar men info kan vinden)"
+msgstr "https://example.com/plugins/simple-survey-builder/ (Uw website of de plek waar men info kan vinden)"
+
+#. Description of the plugin
+#: simple-survey-builder.php
+msgid "A simple plugin to create and manage surveys on your WordPress site."
+msgstr "Een simpele plug-in om enquêtes te maken en beheren op uw WordPress-site."
+
+#. Author of the plugin
+#: simple-survey-builder.php
+msgid "Anton Bil"
+msgstr "Anton Bil"
+
+#. Author URI of the plugin
+#: simple-survey-builder.php
+msgid "https://jouwwebsite.com (Jouw website)"
+msgstr "https://jouwwebsite.com (Uw website)"
+
+#: simple-survey-builder.php:LINE_NUMBER
+#, php-format
+msgid "Error: No slug provided for the %s shortcode. Use e.g., [%s slug=\"your_slug\"]."
+msgstr "Fout: Geen slug opgegeven voor de %s shortcode. Gebruik bijv. [%s slug=\"uw_slug\"]."
+
+#: simple-survey-builder.php:LINE_NUMBER
+msgid "Thank you for your feedback!"
+msgstr "Bedankt voor uw feedback!"
+
+#: simple-survey-builder.php:LINE_NUMBER
+msgid "Your response has been successfully received and saved."
+msgstr "Uw reactie is succesvol ontvangen en opgeslagen."
+
+#: simple-survey-builder.php:LINE_NUMBER
+msgid "Fill out the survey again"
+msgstr "Vul de enquête nogmaals in"
+
+#: simple-survey-builder.php:LINE_NUMBER
+msgid "optional"
+msgstr "optioneel"
+
+#: simple-survey-builder.php:LINE_NUMBER
+msgid "or"
+msgstr "of"
+
+#: simple-survey-builder.php:LINE_NUMBER
+msgid "go to the homepage"
+msgstr "ga naar de homepage"
+
+#: simple-survey-builder.php:LINE_NUMBER
+msgid "Error: The survey questions configuration has not been loaded. Please check the survey slug and JSON configuration."
+msgstr "Fout: De configuratie van de enquêtevragen is niet geladen. Controleer de slug van de enquête en de JSON-configuratie."
+
+#: simple-survey-builder.php:LINE_NUMBER
+msgid "Please fill out the survey below"
+msgstr "Vul de enquête hieronder in"
+
+#: simple-survey-builder.php:LINE_NUMBER
+#, php-format
+msgid "Form field type \"%s\" is not configured."
+msgstr "Formulierveld type \"%s\" is niet geconfigureerd."
+
+#: simple-survey-builder.php:LINE_NUMBER
+msgid "Required questions"
+msgstr "Verplichte vragen"
+
+#: simple-survey-builder.php:LINE_NUMBER
+msgctxt "verb: form submit button"
+msgid "Submit Feedback"
+msgstr "Feedback Verzenden"
+
+#: simple-survey-builder.php:LINE_NUMBER
+msgid "Survey Results Overview"
+msgstr "Overzicht Enquêteresultaten"
+
+#: simple-survey-builder.php:LINE_NUMBER
+msgid "Results will be displayed here on the live page"
+msgstr "Resultaten worden hier op de live pagina getoond"
+
+# This msgid appears twice in the POT, which is fine. Tools will handle it.
+#: simple-survey-builder.php:LINE_NUMBER 
+#: simple-survey-builder.php:OTHER_LINE_NUMBER 
+#, php-format
+msgid "Error: No slug provided for the %s shortcode. Use e.g., [%s slug=\"your_slug\"]."
+msgstr "Fout: Geen slug opgegeven voor de %s shortcode. Gebruik bijv. [%s slug=\"uw_slug\"]."
+
+#: simple-survey-builder.php:LINE_NUMBER
+msgid "Error: Survey configuration could not be loaded for the provided slug."
+msgstr "Fout: Enquêteconfiguratie kon niet worden geladen voor de opgegeven slug."
+
+#: simple-survey-builder.php:LINE_NUMBER
+msgid "No survey results are available yet."
+msgstr "Er zijn nog geen enquêteresultaten beschikbaar."
+
+#: simple-survey-builder.php:LINE_NUMBER
+#, php-format
+msgid "Site Evaluation Results (%d entries)"
+msgstr "Resultaten Site Evaluatie (%d inzendingen)"
+
+#: simple-survey-builder.php:LINE_NUMBER
+msgid "Error: The survey questions configuration is not available for displaying results."
+msgstr "Fout: De configuratie van de enquêtevragen is niet beschikbaar voor het weergeven van resultaten."
+
+#: simple-survey-builder.php:LINE_NUMBER
+msgid "Insufficient data for a chart for this question."
+msgstr "Onvoldoende data voor een grafiek voor deze vraag."
+
+#: simple-survey-builder.php:LINE_NUMBER
+#, php-format
+msgid "Unknown display type (%s) for this question."
+msgstr "Onbekend weergavetype (%s) voor deze vraag."
+
+#: simple-survey-builder.php:LINE_NUMBER
+msgid "No answers yet for this question."
+msgstr "Nog geen antwoorden voor deze vraag."
+
+#: simple-survey-builder.php:LINE_NUMBER
+msgid "An error occurred while displaying results for this question."
+msgstr "Er is een fout opgetreden bij het weergeven van de resultaten voor deze vraag."
+
+#: simple-survey-builder.php:LINE_NUMBER
+msgid "Number of votes"
+msgstr "Aantal stemmen"
+
+#: simple-survey-builder.php:LINE_NUMBER 
+msgid "Count"
+msgstr "Aantal"
+
+#: simple-survey-builder.php:LINE_NUMBER
+#, php-format
+msgid "KSS Survey Plugin: Critical configuration file (%s) is missing. CPTs cannot be registered."
+msgstr "KSS Survey Plugin: Kritiek configuratiebestand (%s) ontbreekt. CPTs kunnen niet worden geregistreerd."
+
+#: simple-survey-builder.php:LINE_NUMBER
+#, php-format
+msgid "KSS Survey Plugin: Could not read configuration file (%s). CPTs may not be registered correctly."
+msgstr "KSS Survey Plugin: Kon configuratiebestand (%s) niet lezen. CPTs worden mogelijk niet correct geregistreerd."
+
+#: simple-survey-builder.php:LINE_NUMBER
+#, php-format
+msgid "KSS Survey Plugin: Error decoding CPT configuration file. JSON error: %s."
+msgstr "KSS Survey Plugin: Fout bij het decoderen van CPT-configuratiebestand. JSON-fout: %s."
+
+#: simple-survey-builder.php:LINE_NUMBER
+msgid "KSS Survey Plugin: CPT configuration is empty or invalid. No CPTs were registered from the configuration file."
+msgstr "KSS Survey Plugin: CPT-configuratie is leeg of ongeldig. Er zijn geen CPTs geregistreerd vanuit het configuratiebestand."
+
+#: simple-survey-builder.php:LINE_NUMBER
+#, php-format
+msgctxt "verb"
+msgid "Add New %s"
+msgstr "Nieuwe %s toevoegen"
+# Noot: Als "Add New %s" in het POT-bestand meerdere keren voorkomt (bijv. voor 'add_new' en 'add_new_item'),
+# hoef je in het .po-bestand maar één vertaling te geven voor die msgid/msgctxt combinatie.
+
+#: simple-survey-builder.php:LINE_NUMBER
+#, php-format
+msgctxt "verb"
+msgid "New %s"
+msgstr "Nieuwe %s"
+
+#: simple-survey-builder.php:LINE_NUMBER
+#, php-format
+msgctxt "verb"
+msgid "Edit %s"
+msgstr "%s bewerken"
+
+#: simple-survey-builder.php:LINE_NUMBER
+#, php-format
+msgctxt "verb"
+msgid "View %s"
+msgstr "%s bekijken"
+
+#: simple-survey-builder.php:LINE_NUMBER
+#, php-format
+msgid "All %s"
+msgstr "Alle %s"
+
+#: simple-survey-builder.php:LINE_NUMBER
+#, php-format
+msgctxt "verb"
+msgid "Search %s"
+msgstr "%s zoeken"
+
+#: simple-survey-builder.php:LINE_NUMBER
+#, php-format
+msgid "Parent %s:"
+msgstr "Bovenliggende %s:"
+
+#: simple-survey-builder.php:LINE_NUMBER
+#, php-format
+msgid "No %s found."
+msgstr "Geen %s gevonden."
+
+#: simple-survey-builder.php:LINE_NUMBER
+#, php-format
+msgid "No %s found in Trash."
+msgstr "Geen %s gevonden in prullenbak."
+
+#: simple-survey-builder.php:LINE_NUMBER
+#, php-format
+msgctxt "Overrides the “Featured Image” phrase for this post type. Added in 4.3. %s is singular post type name."
+msgid "Featured image for this %s"
+msgstr "Uitgelichte afbeelding voor deze %s"
+
+#: simple-survey-builder.php:LINE_NUMBER
+msgctxt "Overrides the “Set featured image” phrase for this post type. Added in 4.3"
+msgid "Set featured image"
+msgstr "Stel uitgelichte afbeelding in"
+
+#: simple-survey-builder.php:LINE_NUMBER
+msgctxt "Overrides the “Remove featured image” phrase for this post type. Added in 4.3"
+msgid "Remove featured image"
+msgstr "Verwijder uitgelichte afbeelding"
+
+#: simple-survey-builder.php:LINE_NUMBER
+msgctxt "Overrides the “Use as featured image” phrase for this post type. Added in 4.3"
+msgid "Use as featured image"
+msgstr "Gebruik als uitgelichte afbeelding"
+
+#: simple-survey-builder.php:LINE_NUMBER
+#, php-format
+msgctxt "The post type archive label used in nav menus. Default “Post Archives”. Added in 4.4. %s is singular post type name."
+msgid "%s Archives"
+msgstr "%s Archieven"
+
+#: simple-survey-builder.php:LINE_NUMBER
+#, php-format
+msgctxt "Overrides the “Insert into post”/”Insert into page” phrase (used when inserting media into a post). Added in 4.4. %s is singular post type name, lowercase."
+msgid "Insert into %s"
+msgstr "Invoegen in %s"
+
+#: simple-survey-builder.php:LINE_NUMBER
+#, php-format
+msgctxt "Overrides the “Uploaded to this post” phrase (used when viewing media attached to a post). Added in 4.4. %s is singular post type name, lowercase."
+msgid "Uploaded to this %s"
+msgstr "Geüpload naar deze %s"
+
+#: simple-survey-builder.php:LINE_NUMBER
+#, php-format
+msgctxt "Screen reader text for the filter links heading on the post type listing screen. Default “Filter posts list”/”Filter pages list”. Added in 4.4. %s is plural post type name, lowercase."
+msgid "Filter %s list"
+msgstr "Filter %s lijst"
+
+#: simple-survey-builder.php:LINE_NUMBER
+#, php-format
+msgctxt "Screen reader text for the pagination heading on the post type listing screen. Default “Posts list navigation”/”Pages list navigation”. Added in 4.4. %s is plural post type name."
+msgid "%s list navigation"
+msgstr "%s lijstnavigatie"
+
+#: simple-survey-builder.php:LINE_NUMBER
+#, php-format
+msgctxt "Screen reader text for the items list heading on the post type listing screen. Default “Posts list”/”Pages list”. Added in 4.4. %s is plural post type name."
+msgid "%s list"
+msgstr "%s lijst"
+
+#: simple-survey-builder.php:LINE_NUMBER
+#, php-format
+msgid "%s updated."
+msgstr "%s bijgewerkt."
+
+#: simple-survey-builder.php:LINE_NUMBER
+#, php-format
+msgid "Error: No slug provided for the %1$s shortcode. Use e.g., [%1$s slug=\"%2$s\"]."
+msgstr "Fout: Geen slug opgegeven voor de %1$s shortcode. Gebruik bijv. [%1$s slug=\"%2$s\"]."
+
+#: simple-survey-builder.php:LINE_NUMBER
+#, php-format
+msgid "Error: Configuration for slug \"%s\" could not be loaded for the cpt_list shortcode."
+msgstr "Fout: Configuratie voor slug \"%s\" kon niet worden geladen voor de cpt_list shortcode."
+
+#: simple-survey-builder.php:LINE_NUMBER
+#, php-format
+msgctxt "Edit link title attribute, %s is post title"
+msgid "Edit %s"
+msgstr "Bewerk %s"
+# Noot: De vertaling voor "Bewerk %s" is waarschijnlijk hetzelfde, maar de context helpt
+# de vertaler en zorgt ervoor dat als het ooit zou moeten verschillen, het kan.
+
+#: simple-survey-builder.php:LINE_NUMBER
+msgid "(Edit)"
+msgstr "(Bewerken)"
+
+#: simple-survey-builder.php:LINE_NUMBER
+msgid "Cannot generate edit link"
+msgstr "Kan bewerklink niet genereren"
+
+#: simple-survey-builder.php:LINE_NUMBER
+msgid "Overall Satisfaction:"
+msgstr "Algemene Tevredenheid:"
+
+#: simple-survey-builder.php:LINE_NUMBER
+#, php-format
+msgid "Submitted on: %s"
+msgstr "Ingezonden op: %s"
+
+#: simple-survey-builder.php:LINE_NUMBER
+msgid "&laquo; Previous"
+msgstr "&laquo; Vorige"
+
+#: simple-survey-builder.php:LINE_NUMBER
+msgid "Next &raquo;"
+msgstr "Volgende &raquo;"
+
+#: simple-survey-builder.php:LINE_NUMBER
+#, php-format
+msgid "No items found for %s."
+msgstr "Geen items gevonden voor %s."
+
+#: simple-survey-builder.php:LINE_NUMBER
+msgid "No answers yet for this question."
+msgstr "Nog geen antwoorden voor deze vraag."
+
+#: simple-survey-builder.php:LINE_NUMBER
+msgid "Error: Critical survey information (slug) is missing. Cannot process submission."
+msgstr "Fout: Kritische enquête informatie (slug) ontbreekt. Kan inzending niet verwerken."
+
+#: simple-survey-builder.php:LINE_NUMBER
+msgid "Error: The survey questions configuration was not loaded for validation."
+msgstr "Fout: De configuratie van de enquêtevragen is niet geladen voor validatie."
+
+#: simple-survey-builder.php:LINE_NUMBER
+#, php-format
+msgid "%s is a required field (choose at least one option)."
+msgstr "%s is een verplicht veld (kies ten minste één optie)."
+
+#: simple-survey-builder.php:LINE_NUMBER
+#, php-format
+msgid "%s is a required field."
+msgstr "%s is een verplicht veld."
+
+#: simple-survey-builder.php:LINE_NUMBER
+msgid "Please correct the following errors:"
+msgstr "Let op, de volgende fouten zijn opgetreden:"
+# Of "Corrigeer alstublieft de volgende fouten:" als je een directere vertaling wilt.
+
+#: simple-survey-builder.php:LINE_NUMBER
+msgid "Go back and try again."
+msgstr "Ga terug en probeer opnieuw."
+
+#: simple-survey-builder.php:LINE_NUMBER
+msgid "Validation Error"
+msgstr "Validatiefout"
+
+#: simple-survey-builder.php:LINE_NUMBER
+#, php-format
+msgid "Survey Submission - %1$s %2$s"
+msgstr "Enquête Inzending - %1$s %2$s"
+
+#: simple-survey-builder.php:LINE_NUMBER
+msgid "A critical error occurred while trying to save your feedback due to missing configuration. Please contact the site administrator."
+msgstr "Er is een kritieke fout opgetreden bij het opslaan van uw feedback vanwege een ontbrekende configuratie. Neem contact op met de sitebeheerder."
+
+#: simple-survey-builder.php:LINE_NUMBER
+msgid "An error occurred while processing your feedback. Please try again later."
+msgstr "Er is een fout opgetreden bij het verwerken van uw feedback. Probeer het later opnieuw."
+
+# Optioneel, voor nonce:
+#: simple-survey-builder.php:LINE_NUMBER
+msgid "Security check failed. Please try again."
+msgstr "Beveiligingscontrole mislukt. Probeer het opnieuw."
+
+#: simple-survey-builder.php:LINE_NUMBER
+msgid "Nonce Error"
+msgstr "Nonce Fout"
