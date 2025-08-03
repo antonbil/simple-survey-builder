@@ -185,6 +185,7 @@ function kss_render_site_survey_form( $atts ) {
     $atts = shortcode_atts( array(
         'slug'            => $default_slug,
         'redirect_page'   => '', // Optional redirect page slug or ID
+        'title'           =>'', // Optional title on top of survey
     ), $atts, 'site_survey' ); // Use the actual shortcode tag 'site_survey'**
 
     // 2. Validate the provided slug
@@ -233,6 +234,22 @@ function kss_render_site_survey_form( $atts ) {
             // This message is more for the site admin/developer during setup.
             echo '<p>' . esc_html__( 'Error: The survey questions configuration has not been loaded. Please check the survey slug and JSON configuration.', 'simple-survey-builder' ) . '</p>';
         } else {
+            $title = 'Please fill out the survey below';
+            if ( ! empty( $atts['title'] ) ) {
+                $user_provided_title = $atts['title']; // Do not escape directly here!
+
+                // Define allowed HTML for the title
+                $allowed_title_html = array(
+                    'br' => array(),      // Allow <br> tags
+                    'strong' => array(),  // Allow <strong> tags
+                    'em' => array(),      // Allow <em> tags
+                    // Add more tags here if necessary and safe
+                );
+
+                // Filter the user-provided title with wp_kses
+                $title = wp_kses( $user_provided_title, $allowed_title_html );
+            }
+
             ?>
             <div class="site-survey-form-container kss-survey-form-container">
                 <form id="site-survey-form" method="post" action="">
@@ -242,7 +259,7 @@ function kss_render_site_survey_form( $atts ) {
                     <input type="hidden" name="kss_current_page_url" value="<?php echo esc_url( get_permalink( get_the_ID() ) ); ?>">
                     <input type="hidden" name="kss_submitted_survey_slug" value="<?php echo esc_attr( $current_slug_identifier ); ?>">
 
-                    <h2><?php esc_html_e( 'Please fill out the survey below', 'simple-survey-builder' ); ?></h2>
+                    <h2><?php if ( ! empty( $atts['title'] ) ) {echo $title;}else esc_html_e( 'Please fill out the survey below', 'simple-survey-builder' ); ?></h2>
 
                     <?php
                     $current_legend_text = null; // Keep track of the current legend text
