@@ -17,7 +17,6 @@ Simple Survey Builder allows you to quickly and easily configure surveys using a
         *   [Display Survey Results: `[site_survey_results]`](#2-display-survey-results-site_survey_results)
         *   [List Survey Entries: `[cpt_list]`](#3-list-survey-entries-cpt_list)
 *   [About the Author](#about-the-author)
-*   [Screenshots (Optional)](#screenshots-optional)
 *   [Contributing](#contributing)
 *   [License](#license)
 *   [Support](#support)
@@ -246,16 +245,6 @@ This shortcode is used to display a list of individual entries submitted for a s
 
 **Usage:**
 `[cpt_list slug="your_survey_slug"  number="10" orderby="date" order="DESC" link_to="admin_edit" ]`
-
-## Screenshots (Optional)
-
-*(If you have screenshots of how the plugin looks or works, add them here. This can help make the plugin visually appealing to users.)*
-
-**Example of a survey:**
-`![Example Survey](link/to/screenshot1.png)`
-
-**Configuration in JSON:**
-`![Example JSON](link/to/screenshot2.png)`
 
 ## Contributing
 
