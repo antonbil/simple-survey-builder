@@ -19,7 +19,6 @@ Simple Survey Builder allows you to quickly and easily configure surveys using a
 *   [About the Author](#about-the-author)
 *   [Screenshots (Optional)](#screenshots-optional)
 *   [Contributing](#contributing)
-*   [Changelog](#changelog)
 *   [License](#license)
 *   [Support](#support)
 
@@ -70,12 +69,12 @@ There are a couple of ways to install the Simple Survey Builder plugin:
 
    a. Navigate to your WordPress plugins directory: `wp-content/plugins/`
    b. Clone this repository:
-     `bash git clone https://github.com/your- username/ simple- survey- builder. git`
+     `bash git clone https://github.com/antonbil/ simple- survey- builder. git`
    c. Activate the plugin through the 'Plugins' menu in WordPress.
 
 **2. Manual Installation (Download ZIP):**
 
-   a. Go to the main page of this GitHub repository: [https://github.com/your-username/simple-survey-builder](https://github.com/your-username/simple-survey-builder)
+   a. Go to the main page of this GitHub repository: [https://github.com/antonbil/simple-survey-builder](https://github.com/antonbil/simple-survey-builder)
    b. Click the green "Code" button, then click "Download ZIP".
    c. In your WordPress admin dashboard, go to `Plugins > Add New`.
    d. Click `Upload Plugin` at the top.
@@ -135,18 +134,19 @@ There are a couple of ways to install the Simple Survey Builder plugin:
     // ... you can add more survey configurations here, separated by commas
 }
 ```
-        *   **`your_survey_slug_1`**: A unique identifier (slug) for your survey. You'll use this in the shortcode.
-        *   **`survey_title`**: The title displayed at the top of the survey.
-        *   **`survey_introduction`**: HTML text that serves as an introduction.
-        *   **`survey_questions_config`**: An object containing the configuration for each question.
-            *   **`question_key_1`**: A unique key for the question.
-            *   **`form_label`**: The text of the question.
-            *   **`form_type`**: The input type (`text`, `textarea`, `select`, `radio`, `checkbox`).
-            *   **`required`**: `true` or `false`.
-            *   **`placeholder`**: Placeholder text for text/textarea.
-            *   **`form_options`**: An object with `value: label` pairs for select, radio, and checkbox types.
-        *   **`submit_button_text`**: The text on the submit button.
-        *   **`thank_you_message`**: HTML text displayed after successful submission.
+
+*   **`your_survey_slug_1`**: A unique identifier (slug) for your survey. You'll use this in the shortcode.
+*   **`survey_title`**: The title displayed at the top of the survey.
+*   **`survey_introduction`**: HTML text that serves as an introduction.
+*   **`survey_questions_config`**: An object containing the configuration for each question.
+*   **`question_key_1`**: A unique key for the question.
+*   **`form_label`**: The text of the question.
+*   **`form_type`**: The input type (`text`, `textarea`, `select`, `radio`, `checkbox`).
+*   **`required`**: `true` or `false`.
+*   **`placeholder`**: Placeholder text for text/textarea.
+*   **`form_options`**: An object with `value: label` pairs for select, radio, and checkbox types.
+*   **`submit_button_text`**: The text on the submit button.
+*   **`thank_you_message`**: HTML text displayed after successful submission.
 
 ### Shortcodes
 
@@ -172,9 +172,9 @@ When this shortcode is used, the plugin will:
 
 **Example:**
 
-If you have a survey configuration in `config/survey_configurations.json` with `slug_identifier: "website_feedback"`, you would use the following shortcode to display it:
-`[simple_survey slug="website_feedback" ]`
----
+To display the aggregated results for the survey identified by slug_identifier: "product_satisfaction_survey", use the following shortcode:
+```[site_survey_results slug="product_satisfaction_survey"]```
+
 
 ### 2. Display Survey Results: `[site_survey_results]`
 
@@ -205,7 +205,7 @@ When this shortcode is used, the plugin will:
 
 To display the aggregated results for the survey identified by `slug_identifier: "product_satisfaction_survey"`:
 `[site_survey_results slug="product_satisfaction_ survey" ]`
----
+
 **Parameters:**
 
 *   `slug` (required): This is the unique **`slug_identifier`** for the survey configuration (defined in your `config/survey_configurations.json` file). This tells the plugin which survey's entries to list by looking up its associated Custom Post Type.
@@ -269,16 +269,13 @@ Contributions are welcome! Whether it's reporting bugs, suggesting new features,
 
 Please ensure your code adheres to the [WordPress Coding Standards](https://developer.wordpress.org/coding-standards/).
 
-## Changelog
-
-See the [CHANGELOG.md](CHANGELOG.md) for a detailed history of changes in each version. *(You will need to create this file and maintain it.)*
 
 ## License
 
 This plugin is licensed under the GPL v2 or later.
-See [LICENSE.txt](LICENSE.txt) (or link to https://www.gnu.org/licenses/gpl-2.0.html). *(You might want to add a LICENSE.txt file to your repository).*
+See [LICENSE.txt](LICENSE.txt) (or link to https://www.gnu.org/licenses/gpl-2.0.html).
 
 ## Support
 
-If you have any questions or encounter any issues, please open an issue on the [GitHub repository issue tracker](https://github.com/your-username/simple-survey-builder/issues).
-*(You can also add other support channels if you plan to offer them, e.g., a support forum on wordpress.org if your plugin is listed there).*
+If you have any questions or encounter any issues, please open an issue on the [GitHub repository issue tracker](https://github.com/antonbil/simple-survey-builder/issues).
+
