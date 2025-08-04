@@ -371,15 +371,6 @@
             "form_label": "Wat zijn voor u de belangrijkste redenen om de nieuwsbrief te lezen? (meerdere antwoorden mogelijk)",
             "form_type": "checkbox",
             "required": false,
-            "options": {
-                "stay_informed_church_life": "Op de hoogte blijven van het kerkelijk leven",
-                "info_services_events": "Informatie over diensten en evenementen",
-                "sermon_preparation": "Voorbereiding op/reflectie na de preek",
-                "community_connection": "Gevoel van verbondenheid met de gemeente",
-                "missed_announcements": "Mededelingen die ik anders misschien mis",
-                "quick_overview": "Snel overzicht van wat er speelt",
-                "link_to_website_content": "Handige links naar relevante website content"
-            },
             "form_options": {
                 "stay_informed_church_life": "Op de hoogte blijven van het kerkelijk leven",
                 "info_services_events": "Informatie over diensten en evenementen",
