@@ -386,3 +386,7 @@ msgstr ""
 #: simple-survey-builder.php:LINE_NUMBER
 msgid "Nonce Error"
 msgstr ""
+
+#: simple-survey-builder.php:LINE_NUMBER
+msgid "Missing"
+msgstr ""

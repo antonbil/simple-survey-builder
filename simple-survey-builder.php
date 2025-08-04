@@ -1068,7 +1068,7 @@ function kss_render_site_survey_results( $atts ) {
                         // The 'display_type' in $q_data here refers to the *display type* for results,
                         // which might be different from the 'form_type' in the form rendering.
                         // You might need to adjust this logic based on how results 'display_type' is defined in your JSON.
-                        if ( $q_data['display_type'] === 'bar_chart' || $q_data['display_type'] === 'radio' || $q_data['display_type'] === 'checkbox' ) {
+                        if ( $q_data['display_type'] === 'bar_chart' || $q_data['display_type'] === 'pie_chart') {
                             // Ensure kss_prepare_data_for_bar_chart function is defined and handles data correctly
                             try{
                             $chart_js_data = kss_prepare_data_for_bar_chart( $q_data, $current_question_answers, $total_entries );
@@ -1110,87 +1110,124 @@ function kss_render_site_survey_results( $atts ) {
         ?>
     </div>
 
-    <script type="text/javascript">
-        document.addEventListener('DOMContentLoaded', function() {
-            const chartsData = <?php echo empty($charts_data_for_js) ? '{}' : json_encode( $charts_data_for_js ); ?>;
-            // console.log('Chart.js Data for Results:', chartsData); // Debugging
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+        const chartsData = <?php echo empty($charts_data_for_js) ? '{}' : json_encode( $charts_data_for_js ); ?>;
+        // console.log('Chart.js Data for Results:', chartsData); // Debugging
 
-            for (const chartKey in chartsData) {
-                if (chartsData.hasOwnProperty(chartKey)) {
-                    const canvasId = chartKey; // The canvas ID is equal to the key in chartsData
-                    const ctx = document.getElementById(canvasId);
+        for (const chartKey in chartsData) {
+            if (chartsData.hasOwnProperty(chartKey)) {
+                const canvasId = chartKey;
+                const ctx = document.getElementById(canvasId);
+                
+                if (ctx) {
+                    const chartConfigData = chartsData[chartKey];
+                    const chartType = chartConfigData.display_type || 'bar'; // Get the chart type
+                    // console.log('Processing chart for results:', canvasId, chartConfigData, 'Type:', chartType); // Debugging
                     
-                    if (ctx) {
-                        const chartConfigData = chartsData[chartKey];
-                        console.log(chartConfigData);
-                        console.log('Processing chart for results:', canvasId, chartConfigData); // Debugging
-                        
-                        new Chart(ctx, {
-                            type: chartConfigData.display_type || 'bar', // Ensure chartConfigData provides 'display_type' (bar, pie etc)
-                            data: {
-                                labels: chartConfigData.labels,
-                                datasets: [{
-                                    // Make "Number of votes" translatable
-                                    label: chartConfigData.datasetLabel || '<?php echo esc_js( __( 'Number of votes', 'simple-survey-builder' ) ); ?>',
-                                    data: chartConfigData.data,
-                                    backgroundColor: chartConfigData.backgroundColors || [ // Default colors
-                                        'rgba(54, 162, 235, 0.6)', 'rgba(255, 99, 132, 0.6)',
-                                        'rgba(75, 192, 192, 0.6)', 'rgba(255, 206, 86, 0.6)',
-                                        'rgba(153, 102, 255, 0.6)', 'rgba(255, 159, 64, 0.6)'
-                                    ],
-                                    borderColor: chartConfigData.borderColors || [
-                                        'rgba(54, 162, 235, 1)', 'rgba(255, 99, 132, 1)',
-                                        'rgba(75, 192, 192, 1)', 'rgba(255, 206, 86, 1)',
-                                        'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'
-                                    ],
-                                    borderWidth: 1
-                                }]
+                    // --- Specific options based on chart type ---
+                    let chartOptions = {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                // For pie/doughnut, legend is often useful. For bar, maybe less so by default.
+                                display: chartConfigData.showLegend !== undefined ? chartConfigData.showLegend : (chartType === 'pie' || chartType === 'doughnut') 
                             },
-                            options: {
-                                responsive: true,
-                                maintainAspectRatio: false, // Important for div.chart-container sizing
-                                scales: {
-                                    y: {
-                                        beginAtZero: true,
-                                        ticks: {
-                                            // Ensure y-axis only shows whole numbers if it's about counts
-                                            stepSize: 1, 
-                                            precision: 0 
-                                        }
-                                    }
-                                },
-                                plugins: {
-                                    legend: {
-                                        display: chartConfigData.showLegend !== undefined ? chartConfigData.showLegend : false // Legend default off for bar charts
-                                    },
-                                    tooltip: {
-                                        callbacks: {
-                                            label: function(context) {
-                                                let label = context.dataset.label || '';
-                                                if (label) {
-                                                    label += ': ';
-                                                }
-                                                if (context.parsed.y !== null) {
-                                                    label += context.parsed.y;
-                                                    // Optional: add percentage
-                                                    // const total = context.dataset.data.reduce((acc, val) => acc + val, 0);
-                                                    // const percentage = total > 0 ? ((context.parsed.y / total) * 100).toFixed(1) + '%' : '0%';
-                                                    // label += ' (' + percentage + ')';
-                                                }
-                                                return label;
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = ''; // Start with an empty label
+                                        let value;
+
+                                        // For pie/doughnut charts, the value is directly in context.parsed
+                                        // or context.raw (if you prefer the original value)
+                                        // The label for the segment is often context.label
+                                        if (chartType === 'pie' || chartType === 'doughnut' || chartType === 'polarArea') {
+                                            label = context.label || ''; // This is the label of the segment
+                                            value = context.parsed || context.raw; // The value of the segment
+                                            if (label) {
+                                                label += ': ';
+                                            }
+                                            label += value;
+
+                                            // Optional: Add percentage for pie/doughnut
+                                            const dataArr = context.dataset.data;
+                                            const total = dataArr.reduce((acc, val) => acc + val, 0);
+                                            if (total > 0) {
+                                                const percentage = ((value / total) * 100).toFixed(1) + '%';
+                                                label += ' (' + percentage + ')';
+                                            }
+
+                                        } else { // For bar, line, etc.
+                                            label = context.dataset.label || ''; // This is the label of the dataset
+                                            if (label) {
+                                                label += ': ';
+                                            }
+                                            if (context.parsed.y !== null) {
+                                                label += context.parsed.y;
                                             }
                                         }
+                                        return label;
                                     }
                                 }
                             }
-                        });
+                        }
+                    };
+
+                    // For bar charts (and similar cartesian charts), scales are relevant.
+                    // For pie/doughnut, scales are not used.
+                    if (chartType === 'bar' || chartType === 'line' || chartType === 'scatter' || chartType === 'bubble') {
+                        chartOptions.scales = {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    stepSize: 1, 
+                                    precision: 0 
+                                }
+                            }
+                            // You might want an x-axis configuration here too if needed
+                        };
                     } else {
-                        // console.error('Canvas element not found for chart:', canvasId); // Debugging
+                        // For pie, doughnut, polarArea, radar, legend is often displayed by default or more useful
+                        if (chartOptions.plugins.legend.display === undefined) { // If not explicitly set by user
+                           chartOptions.plugins.legend.display = true;
+                        }
                     }
+                    // --- End of specific options ---
+
+                    new Chart(ctx, {
+                        type: chartType,
+                        data: {
+                            labels: chartConfigData.labels, // These are the segment labels for pie/doughnut
+                            datasets: [{
+                                label: chartConfigData.datasetLabel || '<?php echo esc_js( __( 'Number of votes', 'simple-survey-builder' ) ); ?>', // For bar/line, less relevant for pie as primary label
+                                data: chartConfigData.data, // Values for each segment in pie/doughnut
+                                backgroundColor: chartConfigData.backgroundColors || [
+                                    'rgba(54, 162, 235, 0.7)', 'rgba(255, 99, 132, 0.7)',
+                                    'rgba(75, 192, 192, 0.7)', 'rgba(255, 206, 86, 0.7)',
+                                    'rgba(153, 102, 255, 0.7)', 'rgba(255, 159, 64, 0.7)',
+                                    'rgba(255, 102, 0, 0.7)', 'rgba(50, 205, 50, 0.7)',
+                                    'rgba(138, 43, 226, 0.7)', 'rgba(210, 105, 30, 0.7)'
+                                ],
+                                borderColor: chartConfigData.borderColors || // Often less prominent or not needed for pie
+                                    (chartType === 'pie' || chartType === 'doughnut' ? 'rgba(255, 255, 255, 0.7)' : [ // White borders for pie segments
+                                    'rgba(54, 162, 235, 1)', 'rgba(255, 99, 132, 1)',
+                                    'rgba(75, 192, 192, 1)', 'rgba(255, 206, 86, 1)',
+                                    'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'
+                                ]),
+                                borderWidth: (chartType === 'pie' || chartType === 'doughnut' ? 2 : 1) // Thicker border for pie can look good
+                            }]
+                        },
+                        options: chartOptions // Use the dynamically built options
+                    });
+                } else {
+                    // console.error('Canvas element not found for chart:', canvasId);
                 }
             }
-        });
-    </script>
+        }
+    });
+</script>
     <?php
     return ob_get_clean();
 } // End kss_render_site_survey_results
@@ -1306,9 +1343,18 @@ function kss_prepare_data_for_bar_chart( $question_config, $answers, $total_entr
 
  
 
+    $null_value = 0;
+    $is_pie_chart = isset( $question_config['display_type'] ) && $question_config['display_type'] === 'pie_chart' ;
+    if ($is_pie_chart){
+        if (array_key_exists("", $answer_counts)) { // check if key exists
+            $null_value = $answer_counts[""];
+            unset($answer_counts[""]);
+        }
+    }
     if ( $chart_options_source ) {
         foreach ( $chart_options_source as $value => $label ) {
-            $labels[] = $label; // Use the full label for the chart axis
+            if (!($is_pie_chart && $value === ""))
+                $labels[] = $label; // Use the full label for the chart axis
             // The key in $answer_counts will be the 'value' part of the option.
             // For checkboxes, $value is the option_key like "technology".
             // For radio/select, $value is the submitted value like "yes".
@@ -1340,12 +1386,20 @@ function kss_prepare_data_for_bar_chart( $question_config, $answers, $total_entr
         return false; // No data to plot
     }
 
-
+    $graph_type =  'bar';
+    if ($is_pie_chart){
+        $graph_type =  'pie';
+        // remove element with value $null_value
+        if ($null_value) { // Controleren of de key bestaat
+            echo esc_js( __( 'Missing', 'simple-survey-builder' ) );
+            echo ":".$null_value; // Direct unsetten op key als $null_value de KEY is
+        }
+    }
     return array(
         'labels'       => $labels,
         'data'         => $data_counts,
         'datasetLabel' => $dataset_label_text,
-        'display_type'         => 'bar' // Explicitly set chart type for consistency, can be overridden by $question_config if needed
+        'display_type'         =>$graph_type // Explicitly set chart type for consistency, can be overridden by $question_config if needed
         // You could also define specific colors per chart here if desired,
         // e.g., 'backgroundColors' => ['#ff0000', ...], 'borderColors' => [...]
     );

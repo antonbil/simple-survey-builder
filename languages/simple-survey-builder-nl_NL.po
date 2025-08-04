@@ -388,3 +388,7 @@ msgstr "Beveiligingscontrole mislukt. Probeer het opnieuw."
 #: simple-survey-builder.php:LINE_NUMBER
 msgid "Nonce Error"
 msgstr "Nonce Fout"
+
+#: simple-survey-builder.php:LINE_NUMBER
+msgid "Missing"
+msgstr "Niet ingevuld"

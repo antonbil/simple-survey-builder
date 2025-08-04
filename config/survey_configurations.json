@@ -297,7 +297,6 @@
             "display_type": "bar_chart",
             "legend": "Leesgedrag",
             "label": "Meest Gelezen/Interessante Onderdelen",
-                "display_type": "bar_chart",
             
             "results_config": {
                 "label": "Meest Gelezen/Interessante Onderdelen",
@@ -357,7 +356,7 @@
         },
         "unsubscribe_link_clarity": {
         "label": "Duidelijkheid Uitschrijflink",
-        "display_type": "bar_chart",
+        "display_type": "pie_chart",
         "options": {
             "yes": "Ja, duidelijk",
             "no": "Nee, moeilijk te vinden",
