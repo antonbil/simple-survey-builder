@@ -11,7 +11,7 @@
         "survey_questions_config": {
             "overall_rating": {
                 "label": "Algemene Tevredenheid",
-                "type": "bar_chart",
+                "display_type": "bar_chart",
                 "options": {
                     "5": "Zeer tevreden",
                     "4": "Tevreden",
@@ -35,7 +35,7 @@
             },
             "appreciated_aspects": {
                 "label": "Wat wordt gewaardeerd?",
-                "type": "text_list",
+                "display_type": "text_list",
                 "legend": "Wat waardeert u het meest?",
                 "form_label": "Welke onderdelen of aspecten van de website waardeert u het meest? (bijv. informatievoorziening, ontwerp, gebruiksgemak, specifieke content)",
                 "form_type": "textarea",
@@ -44,7 +44,7 @@
             },
             "missing_aspects": {
                 "label": "Wat wordt gemist / kan beter?",
-                "type": "text_list",
+                "display_type": "text_list",
                 "legend": "Wat mist u of kan beter?",
                 "form_label": "Zijn er zaken die u mist op de website, of onderdelen die volgens u verbeterd kunnen worden? (bijv. ontbrekende informatie, moeilijke navigatie, technische problemen, suggesties voor nieuwe content)",
                 "form_type": "textarea",
@@ -53,7 +53,7 @@
             },
             "content_kerkdiensten": {
                 "label": "Beoordeling Kerkdiensten Info",
-                "type": "bar_chart",
+                "display_type": "bar_chart",
                 "options": {
                     "5": "Uitstekend",
                     "4": "Goed",
@@ -76,7 +76,7 @@
             },
             "content_agenda": {
                 "label": "Beoordeling Agenda Info",
-                "type": "bar_chart",
+                "display_type": "bar_chart",
                 "options": {
                     "5": "Uitstekend",
                     "4": "Goed",
@@ -99,7 +99,7 @@
             },
             "ease_of_use": {
                 "label": "Gemak Informatie Vinden",
-                "type": "bar_chart",
+                "display_type": "bar_chart",
                 "options": {
                     "5": "Zeer gemakkelijk",
                     "4": "Gemakkelijk",
@@ -122,7 +122,7 @@
             },
             "design_appeal": {
                 "label": "Beoordeling Ontwerp & Uitstraling",
-                "type": "bar_chart",
+                "display_type": "bar_chart",
                 "options": {
                     "5": "Zeer aantrekkelijk",
                     "4": "Aantrekkelijk",
@@ -145,7 +145,7 @@
             },
             "other_comments": {
                 "label": "Overige Opmerkingen",
-                "type": "text_list",
+                "display_type": "text_list",
                 "legend": "Eventuele Overige Opmerkingen",
                 "form_label": "Heeft u nog andere opmerkingen, suggesties of feedback?",
                 "form_type": "textarea",
@@ -166,7 +166,7 @@
     "survey_questions_config": {
         "overall_experience_newsletter": {
         "label": "Algemene Ervaring Nieuwsbrief",
-        "type": "bar_chart",
+        "display_type": "bar_chart",
         "options": {
             "5": "Zeer positief",
             "4": "Positief",
@@ -190,7 +190,7 @@
         },
         "clarity_preacher_sermon_info": {
         "label": "Duidelijkheid Info Predikant & Preek",
-        "type": "bar_chart",
+        "display_type": "bar_chart",
         "options": {
             "5": "Zeer duidelijk",
             "4": "Duidelijk",
@@ -213,7 +213,7 @@
         },
         "relevance_collection_goal": {
         "label": "Relevantie Collecte Informatie",
-        "type": "bar_chart",
+        "display_type": "bar_chart",
         "options": {
             "5": "Zeer relevant",
             "4": "Relevant",
@@ -236,7 +236,7 @@
         },
         "usefulness_latest_announcements": {
         "label": "Nut Mededelingen",
-        "type": "bar_chart",
+        "display_type": "bar_chart",
         "options": {
             "5": "Zeer nuttig",
             "4": "Nuttig",
@@ -259,7 +259,7 @@
         },
         "value_upcoming_events": {
         "label": "Waarde Agenda-items",
-        "type": "bar_chart",
+        "display_type": "bar_chart",
         "options": {
             "5": "Zeer waardevol",
             "4": "Waardevol",
@@ -284,6 +284,7 @@
             "form_label": "Welke onderdelen van de nieuwsbrief leest u meestal of vindt u het meest interessant? (meerdere antwoorden mogelijk)",
             "form_type": "checkbox",
             "required": false,
+            
             "form_options": {
                 "sermon_preview": "Vooruitblik op de preek/predikant",
                 "collection_details": "Details over het collectedoel",
@@ -293,15 +294,19 @@
                 "practical_info": "Praktische informatie (indien van toepassing)",
                 "personal_stories": "Persoonlijke verhalen/getuigenissen (indien van toepassing)"
             },
+            "display_type": "bar_chart",
             "legend": "Leesgedrag",
+            "label": "Meest Gelezen/Interessante Onderdelen",
+                "display_type": "bar_chart",
+            
             "results_config": {
                 "label": "Meest Gelezen/Interessante Onderdelen",
-                "type": "bar_chart"
+                "display_type": "bar_chart"
             }
         },
         "readability_layout_newsletter": {
         "label": "Leesbaarheid en Lay-out",
-        "type": "bar_chart",
+        "display_type": "bar_chart",
         "options": {
             "5": "Uitstekend",
             "4": "Goed",
@@ -324,7 +329,7 @@
         },
         "frequency_newsletter": {
         "label": "Frequentie Nieuwsbrief",
-        "type": "bar_chart", 
+        "display_type": "bar_chart", 
         "options": {
             "perfect": "Precies goed",
             "more_often": "Mag vaker",
@@ -343,7 +348,7 @@
         },
         "missing_elements_suggestions": {
         "label": "Suggesties voor Toevoegingen",
-        "type": "text_list",
+        "display_type": "text_list",
         "legend": "Frequentie en Suggesties",
         "form_label": "Zijn er elementen (bij voorkeur content die ook op de website staat) die u graag toegevoegd zou zien aan de nieuwsbrief? Of heeft u andere suggesties ter verbetering?",
         "form_type": "textarea",
@@ -352,7 +357,7 @@
         },
         "unsubscribe_link_clarity": {
         "label": "Duidelijkheid Uitschrijflink",
-        "type": "radio",
+        "display_type": "bar_chart",
         "options": {
             "yes": "Ja, duidelijk",
             "no": "Nee, moeilijk te vinden",
@@ -372,6 +377,15 @@
             "form_label": "Wat zijn voor u de belangrijkste redenen om de nieuwsbrief te lezen? (meerdere antwoorden mogelijk)",
             "form_type": "checkbox",
             "required": false,
+            "options": {
+                "stay_informed_church_life": "Op de hoogte blijven van het kerkelijk leven",
+                "info_services_events": "Informatie over diensten en evenementen",
+                "sermon_preparation": "Voorbereiding op/reflectie na de preek",
+                "community_connection": "Gevoel van verbondenheid met de gemeente",
+                "missed_announcements": "Mededelingen die ik anders misschien mis",
+                "quick_overview": "Snel overzicht van wat er speelt",
+                "link_to_website_content": "Handige links naar relevante website content"
+            },
             "form_options": {
                 "stay_informed_church_life": "Op de hoogte blijven van het kerkelijk leven",
                 "info_services_events": "Informatie over diensten en evenementen",
@@ -382,14 +396,16 @@
                 "link_to_website_content": "Handige links naar relevante website content"
             },
             "legend": "Leesmotivatie",
+            "display_type": "bar_chart",
+            "label": "Belangrijkste Redenen om te Lezen",
             "results_config": {
                 "label": "Belangrijkste Redenen om te Lezen",
-                "type": "bar_chart"
+                "display_type": "bar_chart"
             }
         },
         "final_remarks_newsletter": {
         "label": "Laatste Opmerkingen Nieuwsbrief",
-        "type": "text_list",
+        "display_type": "text_list",
         "legend": "Overige",
         "form_label": "Heeft u nog andere opmerkingen of feedback specifiek over de nieuwsbrief?",
         "form_type": "textarea",

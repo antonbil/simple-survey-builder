@@ -1046,8 +1046,12 @@ function kss_render_site_survey_results( $atts ) {
             echo '<p>' . esc_html__( 'Error: The survey questions configuration is not available for displaying results.', 'simple-survey-builder' ) . '</p>';
         } else {
             foreach ( $kss_survey_questions_config as $q_key => $q_data ) {
-                // Ensure $q_data has expected keys like 'label' and 'type' to avoid notices
-                if ( !isset($q_data['label']) || !isset($q_data['type']) ) {
+                // Ensure $q_data has expected keys like 'label' and 'display_type' to avoid notices
+                if ( !isset($q_data['label']) ) {
+                    // error_log("Simple Survey Builder: Question data for key '{$q_key}' is incomplete.");
+                    continue; // Skip this question if essential data is missing
+                }
+                if ( !isset($q_data['display_type']) ) {
                     // error_log("Simple Survey Builder: Question data for key '{$q_key}' is incomplete.");
                     continue; // Skip this question if essential data is missing
                 }
@@ -1061,12 +1065,19 @@ function kss_render_site_survey_results( $atts ) {
 
                         // Assuming 'bar_chart', 'radio', 'checkbox' types are intended for charts
                         // and 'text_list' for text answers.
-                        // The 'type' in $q_data here refers to the *display type* for results,
+                        // The 'display_type' in $q_data here refers to the *display type* for results,
                         // which might be different from the 'form_type' in the form rendering.
-                        // You might need to adjust this logic based on how results 'type' is defined in your JSON.
-                        if ( $q_data['type'] === 'bar_chart' || $q_data['type'] === 'radio' || $q_data['type'] === 'checkbox' ) {
+                        // You might need to adjust this logic based on how results 'display_type' is defined in your JSON.
+                        if ( $q_data['display_type'] === 'bar_chart' || $q_data['display_type'] === 'radio' || $q_data['display_type'] === 'checkbox' ) {
                             // Ensure kss_prepare_data_for_bar_chart function is defined and handles data correctly
+                            try{
                             $chart_js_data = kss_prepare_data_for_bar_chart( $q_data, $current_question_answers, $total_entries );
+                            } catch (Exception $e) {
+                    // Log the error for debugging, don't show raw error to users
+
+                    //echo '<p>' . esc_html__( 'An error occurred while displaying results for this question.', 'simple-survey-builder' ) . '</p>';
+                    //continue;
+                }
                             if ( $chart_js_data ) {
                                 // Use a unique key for the JS data array, consistent with the canvas ID
                                 $chart_data_key = 'chart_' . sanitize_key( $q_key ); // Sanitize key for safety
@@ -1077,12 +1088,12 @@ function kss_render_site_survey_results( $atts ) {
                                 echo '<p>' . esc_html__( 'Insufficient data for a chart for this question.', 'simple-survey-builder' ) . '</p>';
                             }
 
-                        } elseif ( $q_data['type'] === 'text_list' ) {
+                        } elseif ( $q_data['display_type'] === 'text_list' ) {
                             // Ensure kss_render_text_list_for_question function is defined
                             kss_render_text_list_for_question( $q_data, $current_question_answers );
                         } else {
                             // translators: %s is the unknown display type for a question.
-                            echo '<p>' . sprintf( esc_html__( 'Unknown display type (%s) for this question.', 'simple-survey-builder' ), esc_html($q_data['type']) ) . '</p>';
+                            echo '<p>' . sprintf( esc_html__( 'Unknown display type (%s) for this question.', 'simple-survey-builder' ), esc_html($q_data['display_type']) ) . '</p>';
                         }
                     } else {
                         echo '<p>' . esc_html__( 'No answers yet for this question.', 'simple-survey-builder' ) . '</p>';
@@ -1111,10 +1122,11 @@ function kss_render_site_survey_results( $atts ) {
                     
                     if (ctx) {
                         const chartConfigData = chartsData[chartKey];
+                        console.log(chartConfigData);
                         console.log('Processing chart for results:', canvasId, chartConfigData); // Debugging
                         
                         new Chart(ctx, {
-                            type: chartConfigData.type || 'bar', // Ensure chartConfigData provides 'type' (bar, pie etc)
+                            type: chartConfigData.display_type || 'bar', // Ensure chartConfigData provides 'display_type' (bar, pie etc)
                             data: {
                                 labels: chartConfigData.labels,
                                 datasets: [{
@@ -1195,6 +1207,33 @@ function kss_prepare_data_for_bar_chart( $question_config, $answers, $total_entr
     $labels = array();
     $data_counts = array();
     $answer_counts = array(); // Holds counts for each answer option
+    // The datasetLabel will be used in the chart legend if the chart drawing script
+    // doesn't override it. This label comes from the JSON configuration.
+    // If this needs to be a translatable default string from PHP,
+    // $question_config['label'] should be a key to look up in translations.
+    $dataset_label_text = isset($question_config['label']) ? $question_config['label'] : 'Count'; // Fallback to 'Count'
+   // Ensure all possible options (even those with 0 votes) are included in the chart
+    // in the order defined in $question_config['options'] (or 'form_options' if that's where display labels are)
+    // The key 'options' here should refer to the display options for the results chart.
+    // This might be $question_config['form_options'] or a specific $question_config['results_options'].
+    // Assuming $question_config['options'] holds the value => label mapping for chart display.
+    $chart_options_source = null;
+    if (isset($question_config['options']) && is_array($question_config['options'])) {
+        $chart_options_source = $question_config['options'];
+    } elseif (isset($question_config['form_options']) && is_array($question_config['form_options'])) {
+        // Fallback to form_options if 'options' isn't set, for non-checkbox types
+        // where form_options keys might be 'yes', 'no' and values are "Yes", "No".
+        $chart_options_source = $question_config['form_options'];
+    }
+    if ( $chart_options_source && (isset( $question_config['form_type'] ) && $question_config['form_type'] === 'checkbox' )) {
+        foreach ( $chart_options_source as $value => $label ) {
+            $labels[] = $label; // Use the full label for the chart axis
+            // The key in $answer_counts will be the 'value' part of the option.
+            // For checkboxes, $value is the option_key like "technology".
+            // For radio/select, $value is the submitted value like "yes".
+            $data_counts[] = isset( $answer_counts[ (string)$value ] ) ? $answer_counts[ (string)$value ] : 0;
+        }
+    } 
 
     // Determine how $answer_counts is calculated based on form_type
     if ( isset( $question_config['form_type'] ) && $question_config['form_type'] === 'checkbox' ) {
@@ -1216,10 +1255,10 @@ function kss_prepare_data_for_bar_chart( $question_config, $answers, $total_entr
 
         // $option_keys_in_order example: ["technology", "environment", "art"]
         // These keys from form_options are used to map bits to meaningful labels.
-        $option_keys_in_order = array_keys( $question_config['form_options'] );
+        $option_keys_in_order = array_keys( $chart_options_source );
 
         // Initialize counters for each checkbox option
-        foreach ( $option_keys_in_order as $option_key ) {
+        foreach ( $labels as $option_key ) {
             $answer_counts[ $option_key ] = 0;
         }
 
@@ -1242,11 +1281,19 @@ function kss_prepare_data_for_bar_chart( $question_config, $answers, $total_entr
                 // Check if the bit at position $index is set
                 // (1 << $index) creates a mask for the bit at the given index (0-based)
                 if ( ( $bitwise_value & ( 1 << $index ) ) ) {
-                    $answer_counts[ $option_key ]++;
+                    $answer_counts[ $chart_options_source[$option_key] ]++;
                 }
             }
         }
-        // $answer_counts is now e.g.: ['technology' => 10, 'environment' => 5, 'art' => 12]
+        return array(
+            'labels'       => $labels,
+            'data'         => $answer_counts,
+            'datasetLabel' => $dataset_label_text,
+            'display_type'         => 'bar' // Explicitly set chart type for consistency, can be overridden by $question_config if needed
+            // You could also define specific colors per chart here if desired,
+            // e.g., 'backgroundColors' => ['#ff0000', ...], 'borderColors' => [...]
+        );
+        //$answer_counts is now e.g.: ['technology' => 10, 'environment' => 5, 'art' => 12]
 
     } else {
         // ---- Standard logic for Select, Radio (and other direct value types) ----
@@ -1257,20 +1304,7 @@ function kss_prepare_data_for_bar_chart( $question_config, $answers, $total_entr
         // $answer_counts is e.g.: ['yes' => 20, 'no' => 10, 'maybe' => 5]
     }
 
-    // Ensure all possible options (even those with 0 votes) are included in the chart
-    // in the order defined in $question_config['options'] (or 'form_options' if that's where display labels are)
-    // The key 'options' here should refer to the display options for the results chart.
-    // This might be $question_config['form_options'] or a specific $question_config['results_options'].
-    // Assuming $question_config['options'] holds the value => label mapping for chart display.
-    $chart_options_source = null;
-    if (isset($question_config['options']) && is_array($question_config['options'])) {
-        $chart_options_source = $question_config['options'];
-    } elseif (isset($question_config['form_options']) && is_array($question_config['form_options']) && $question_config['form_type'] !== 'checkbox') {
-        // Fallback to form_options if 'options' isn't set, for non-checkbox types
-        // where form_options keys might be 'yes', 'no' and values are "Yes", "No".
-        $chart_options_source = $question_config['form_options'];
-    }
-
+ 
 
     if ( $chart_options_source ) {
         foreach ( $chart_options_source as $value => $label ) {
@@ -1306,17 +1340,12 @@ function kss_prepare_data_for_bar_chart( $question_config, $answers, $total_entr
         return false; // No data to plot
     }
 
-    // The datasetLabel will be used in the chart legend if the chart drawing script
-    // doesn't override it. This label comes from the JSON configuration.
-    // If this needs to be a translatable default string from PHP,
-    // $question_config['label'] should be a key to look up in translations.
-    $dataset_label_text = isset($question_config['label']) ? $question_config['label'] : 'Count'; // Fallback to 'Count'
 
     return array(
         'labels'       => $labels,
         'data'         => $data_counts,
         'datasetLabel' => $dataset_label_text,
-        'type'         => 'bar' // Explicitly set chart type for consistency, can be overridden by $question_config if needed
+        'display_type'         => 'bar' // Explicitly set chart type for consistency, can be overridden by $question_config if needed
         // You could also define specific colors per chart here if desired,
         // e.g., 'backgroundColors' => ['#ff0000', ...], 'borderColors' => [...]
     );
