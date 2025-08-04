@@ -146,11 +146,8 @@ function kss_register_site_survey_shortcode() {
 }
 add_action( 'init', 'kss_register_site_survey_shortcode' );
 
-/**
- * Generate and return the HTML for the survey form.
- */
-function kss_render_site_survey_form( $atts ) {
-    // --- CSS Enqueue ---
+function css_enqueue(){
+   // --- CSS Enqueue ---
     // Unique handle for your stylesheet
     $style_handle = 'simple-survey-builder-style'; // Use the plugin-slug for uniqueness
 
@@ -174,7 +171,14 @@ function kss_render_site_survey_form( $atts ) {
     }
     // --- End CSS Enqueue ---
 
-    global $kss_post_type_definition; // Needed to get the CPT slug after loading
+
+}
+/**
+ * Generate and return the HTML for the survey form.
+ */
+function kss_render_site_survey_form( $atts ) {
+    css_enqueue();
+     global $kss_post_type_definition; // Needed to get the CPT slug after loading
 
     $default_slug = 'default_survey_slug'; // Fallback slug if something goes wrong
     if ( is_array( $kss_post_type_definition ) && isset( $kss_post_type_definition['slug'] ) ) {
@@ -955,6 +959,7 @@ function kss_render_site_survey_results( $atts ) {
         $output .= '</div>';
         return $output;
     }
+    css_enqueue();
 
     global $kss_post_type_definition; // Needed to get the CPT slug after loading
 
@@ -1084,6 +1089,9 @@ function kss_render_site_survey_results( $atts ) {
                                 $charts_data_for_js[ $chart_data_key ] = $chart_js_data;
                                 // The canvas ID must match the key above
                                 echo '<div class="chart-container" style="position: relative; height:300px; width:80vw; max-width:600px; margin-bottom: 20px;"><canvas id="' . esc_attr( $chart_data_key ) . '"></canvas></div>';
+                                if ($chart_js_data['missing']){
+                                    echo "<div class=\"survey-result-text-addition\">".$chart_js_data['missing']."</div>";
+                                }
                             } else {
                                 echo '<p>' . esc_html__( 'Insufficient data for a chart for this question.', 'simple-survey-builder' ) . '</p>';
                             }
@@ -1326,6 +1334,7 @@ function kss_prepare_data_for_bar_chart( $question_config, $answers, $total_entr
             'labels'       => $labels,
             'data'         => $answer_counts,
             'datasetLabel' => $dataset_label_text,
+            'missing'      => "",
             'display_type'         => 'bar' // Explicitly set chart type for consistency, can be overridden by $question_config if needed
             // You could also define specific colors per chart here if desired,
             // e.g., 'backgroundColors' => ['#ff0000', ...], 'borderColors' => [...]
@@ -1385,20 +1394,20 @@ function kss_prepare_data_for_bar_chart( $question_config, $answers, $total_entr
         }
         return false; // No data to plot
     }
-
+    $missing = "";
     $graph_type =  'bar';
     if ($is_pie_chart){
         $graph_type =  'pie';
         // remove element with value $null_value
         if ($null_value) { // Controleren of de key bestaat
-            echo esc_js( __( 'Missing', 'simple-survey-builder' ) );
-            echo ":".$null_value; // Direct unsetten op key als $null_value de KEY is
+            $missing = esc_js( __( 'Missing', 'simple-survey-builder' ) ).":".$null_value; // set missing-value
         }
     }
     return array(
         'labels'       => $labels,
         'data'         => $data_counts,
         'datasetLabel' => $dataset_label_text,
+        'missing'      => $missing,
         'display_type'         =>$graph_type // Explicitly set chart type for consistency, can be overridden by $question_config if needed
         // You could also define specific colors per chart here if desired,
         // e.g., 'backgroundColors' => ['#ff0000', ...], 'borderColors' => [...]

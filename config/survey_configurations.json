@@ -280,11 +280,33 @@
             "1": "Niet waardevol"
         }
         },
+        "value_dienstenrooster": {
+        "label": "Waarde Dienstenrooster-onderdeel",
+        "display_type": "bar_chart",
+        "options": {
+            "5": "Zeer waardevol",
+            "4": "Waardevol",
+            "3": "Neutraal",
+            "2": "Minder waardevol",
+            "1": "Niet waardevol",
+            "": "Niet ingevuld"
+        },
+        "legend": "Inhoud van de Nieuwsbrief",
+        "form_label": "Hoe waardevol vindt u het onderdeel dat doorstuurt naar het dienstenrooster?",
+        "form_type": "select",
+        "form_options": {
+            "": "-- Maak een keuze --",
+            "5": "Zeer waardevol",
+            "4": "Waardevol",
+            "3": "Neutraal",
+            "2": "Minder waardevol",
+            "1": "Niet waardevol"
+        }
+        },
         "most_read_content_newsletter": {
             "form_label": "Welke onderdelen van de nieuwsbrief leest u meestal of vindt u het meest interessant? (meerdere antwoorden mogelijk)",
             "form_type": "checkbox",
             "required": false,
-            
             "form_options": {
                 "sermon_preview": "Vooruitblik op de preek/predikant",
                 "collection_details": "Details over het collectedoel",
@@ -292,7 +314,8 @@
                 "upcoming_events": "Agenda/komende evenementen",
                 "links_website": "Verwijzingen naar artikelen op de website",
                 "practical_info": "Praktische informatie (indien van toepassing)",
-                "personal_stories": "Persoonlijke verhalen/getuigenissen (indien van toepassing)"
+                "personal_stories": "Persoonlijke verhalen/getuigenissen (indien van toepassing)",
+                "dienstenrooster": "De doorverwijzing naar het dienstenrooster"
             },
             "display_type": "bar_chart",
             "legend": "Leesgedrag",
