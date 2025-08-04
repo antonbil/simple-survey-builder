@@ -1282,9 +1282,9 @@ function kss_prepare_data_for_bar_chart( $question_config, $answers, $total_entr
 
         if ( empty( $question_config['form_options'] ) || ! is_array( $question_config['form_options'] ) ) {
             if (defined('WP_DEBUG') && WP_DEBUG === true) {
-                // The label for the error log might come from a 'results_config' or directly from 'label'.
+                // The label for the error log might come from  'label'.
                 // Adjust if $question_config structure is different for results label.
-                $error_label = isset($question_config['label']) ? $question_config['label'] : (isset($question_config['results_config']['label']) ? $question_config['results_config']['label'] : 'Unknown question');
+                $error_label = isset($question_config['label']) ? $question_config['label'] : (isset($question_config['label']) ? $question_config['label'] : 'Unknown question');
                 error_log("kss_prepare_data_for_bar_chart: 'form_options' is missing or not an array for checkbox question: " . $error_label);
             }
             return false; // Cannot process without option definitions
@@ -1365,7 +1365,7 @@ function kss_prepare_data_for_bar_chart( $question_config, $answers, $total_entr
         // as order might be inconsistent and labels might be raw values).
         // This is more suitable if the answers themselves are the categories.
         if (defined('WP_DEBUG') && WP_DEBUG === true && $question_config['form_type'] !== 'checkbox') { // Checkbox has its own handling for labels from form_options
-            $error_label = isset($question_config['label']) ? $question_config['label'] : (isset($question_config['results_config']['label']) ? $question_config['results_config']['label'] : 'Unknown question');
+            $error_label = isset($question_config['label']) ? $question_config['label'] : (isset($question_config['label']) ? $question_config['label'] : 'Unknown question');
             error_log("kss_prepare_data_for_bar_chart: No 'options' or 'form_options' found for chart labels for question: " . $error_label . ". Falling back to raw answer values.");
         }
         // For checkboxes, if 'options' or 'form_options' were missing, it would have returned false earlier.
@@ -1380,7 +1380,7 @@ function kss_prepare_data_for_bar_chart( $question_config, $answers, $total_entr
     
     if (empty($labels) || empty($data_counts)) {
         if (defined('WP_DEBUG') && WP_DEBUG === true) {
-            $error_label = isset($question_config['label']) ? $question_config['label'] : (isset($question_config['results_config']['label']) ? $question_config['results_config']['label'] : 'Unknown question');
+            $error_label = isset($question_config['label']) ? $question_config['label'] : (isset($question_config['label']) ? $question_config['label'] : 'Unknown question');
             error_log("kss_prepare_data_for_bar_chart: No labels or data counts to plot for question: " . $error_label);
         }
         return false; // No data to plot

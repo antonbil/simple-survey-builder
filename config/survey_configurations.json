@@ -296,12 +296,7 @@
             },
             "display_type": "bar_chart",
             "legend": "Leesgedrag",
-            "label": "Meest Gelezen/Interessante Onderdelen",
-            
-            "results_config": {
-                "label": "Meest Gelezen/Interessante Onderdelen",
-                "display_type": "bar_chart"
-            }
+            "label": "Meest Gelezen/Interessante Onderdelen"
         },
         "readability_layout_newsletter": {
         "label": "Leesbaarheid en Lay-out",
@@ -396,11 +391,7 @@
             },
             "legend": "Leesmotivatie",
             "display_type": "bar_chart",
-            "label": "Belangrijkste Redenen om te Lezen",
-            "results_config": {
-                "label": "Belangrijkste Redenen om te Lezen",
-                "display_type": "bar_chart"
-            }
+            "label": "Belangrijkste Redenen om te Lezen"
         },
         "final_remarks_newsletter": {
         "label": "Laatste Opmerkingen Nieuwsbrief",
