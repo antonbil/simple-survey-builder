@@ -1,8 +1,19 @@
 # Simple Survey Builder
 
+[![License: GPL v2 or later](https://img.shields.io/badge/License-GPL%20v2%20or%20later-blue.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
+**Author:** [Anton Bil](https://familiebil.nl/anton)
+**Tags:** survey, forms, poll, quiz, custom post type, json, shortcode
+**Requires at least:** 5.0
+**Tested up to:** 6.8.2
+**Stable tag:** 1.0.0
+**License:** GPLv2 or later
+**License URI:** https://www.gnu.org/licenses/gpl-2.0.html
+
 **A straightforward WordPress plugin for creating and managing surveys, designed with flexibility and control in mind.**
 
 Simple Survey Builder allows you to quickly and easily configure surveys using a `JSON` configuration file and display them on your WordPress website via simple shortcodes. It stores survey submissions in dedicated custom post types, giving you clear ownership and access to your data.
+
+---
 
 ## Table of Contents
 
